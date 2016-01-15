@@ -4,14 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import org.springframework.web.portlet.mvc.AbstractController;
 
-import javax.portlet.*;
-import java.io.IOException;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import java.util.Map;
 
 @Controller
@@ -20,7 +24,7 @@ public class SampleController extends AbstractController{
 
     @ModelAttribute("someData") // send data to portlet on render phase.(see @ModelAttribute for method)
     public String getSomeData() {
-        return "some data";
+        return "sdf";
     }
 
     @RequestMapping  // send data to portlet on render phase.
@@ -56,9 +60,25 @@ public class SampleController extends AbstractController{
         model.addAttribute("successModel", userName);
     }
 
-    @ResourceMapping(value = "doSomeAjax")
-    public void doSomeAjax(ResourceRequest request, ResourceResponse response) throws IOException {
+    @ResourceMapping(value="doSomeAjax")
+    @ResponseBody
+    public Long doSomeAjax(@RequestParam final Long milk,
+                           @RequestParam final  Long sugar) {
 
+     /*   JSONObject responseObject = JSONFactoryUtil.createJSONObject();
+        responseObject.put("sum", milk + sugar);
+
+        JSONArray responseArray = JSONFactoryUtil.createJSONArray();
+        responseArray.put(responseObject);
+        try {
+            //response.getWriter().write(responseArray.toString());
+            OutputStream outStream = response.getPortletOutputStream();
+            outStream.write(5);
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        return milk+sugar;
     }
 
     public ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
@@ -66,4 +86,5 @@ public class SampleController extends AbstractController{
         mav.addObject("message", "Check it out!");
         return mav;
     }
+
 }

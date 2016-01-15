@@ -1,5 +1,3 @@
-<%@ page import="com.liferay.portal.kernel.portlet.LiferayPortletMode"%>
-<%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
@@ -11,9 +9,9 @@
     <portlet:param name="action" value="goSmt"/>
 </portlet:renderURL>
 
-<portlet:resourceURL id="doSomeAjax" var="doSomeAjax" ></portlet:resourceURL>
+<portlet:resourceURL escapeXml="false" id="doSomeAjax" var="doSomeAjax" />
 
-This is our test portlet. p<br/>
+This is our test portlet.<br/>
 Message: ${message1}
 ${someData}
 <div id="<portlet:namespace />main" ng-controller="MainCtrl">
