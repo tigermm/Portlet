@@ -15,13 +15,13 @@ function bootstrap(id, portletId) {
                     milk:$scope.milk,
                     sugar:$scope.sugar
                 };
-                $.ajax({
-                    method: 'POST',
-                    url: url,
-                    params: params,
-                    success: function(data){
-                        $scope.sum = data;
-                    }
+                var httpPromise = $http({
+                    method:'POST',
+                    url:url,
+                    params:params
+                });
+                httpPromise.success(function(data){
+                    $scope.sum = data.sum;
                 });
             };
         }]

@@ -1,10 +1,13 @@
 package com.softaria.portlet;
 
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.util.ParamUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
@@ -12,10 +15,8 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import org.springframework.web.portlet.mvc.AbstractController;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import javax.portlet.*;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -62,23 +63,17 @@ public class SampleController extends AbstractController{
 
     @ResourceMapping(value="doSomeAjax")
     @ResponseBody
-    public Long doSomeAjax(@RequestParam final Long milk,
-                           @RequestParam final  Long sugar) {
-
-     /*   JSONObject responseObject = JSONFactoryUtil.createJSONObject();
+    public void doSomeAjax(ResourceRequest request, ResourceResponse response) {
+        Long milk = ParamUtil.getLong(request, "milk");
+        Long sugar = ParamUtil.getLong(request, "sugar");
+        JSONObject responseObject = JSONFactoryUtil.createJSONObject();
         responseObject.put("sum", milk + sugar);
 
-        JSONArray responseArray = JSONFactoryUtil.createJSONArray();
-        responseArray.put(responseObject);
         try {
-            //response.getWriter().write(responseArray.toString());
-            OutputStream outStream = response.getPortletOutputStream();
-            outStream.write(5);
-            outStream.flush();
+             response.getWriter().println(responseObject);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-        return milk+sugar;
+        }
     }
 
     public ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {

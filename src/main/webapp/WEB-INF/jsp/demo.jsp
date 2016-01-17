@@ -9,7 +9,7 @@
     <portlet:param name="action" value="goSmt"/>
 </portlet:renderURL>
 
-<portlet:resourceURL escapeXml="false" id="doSomeAjax" var="doSomeAjax" />
+<portlet:resourceURL id="doSomeAjax" var="doSomeAjax" />
 
 This is our test portlet.<br/>
 Message: ${message1}
@@ -18,7 +18,7 @@ ${someData}
     <label>Milk: {{milk}}</label>
     <label>Sugar: {{sugar}}</label>
     <label>{{sum}}</label>
-    <input type="button" value="sum" ng-click="doSum('${findState}')">
+    <input type="button" value="sum" ng-click="doSum('${doSomeAjax}')">
 </div>
 <aui:script>
     bootstrap('<portlet:namespace />main', '<portlet:namespace />');
