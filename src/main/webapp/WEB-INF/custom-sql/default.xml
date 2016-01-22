@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+    <sql id="com.softaria.portlet.persistence.ProductsByCategoriesFinder.countProducts">
+        <![CDATA[
+	        SELECT count(p.puid)
+	        FROM lportal.kup_Product as p
+	        WHERE
+	            p.puid in (
+	            	select pc.puid
+	            	from lportal.kup_product_categories as pc
+	            	where pc.cuid in ?)
+        ]]>
+    </sql>
+</custom-sql>

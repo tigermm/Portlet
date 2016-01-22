@@ -1,0 +1,23 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="com.klopotek.liferay.plugins">
+    <namespace>ds</namespace>
+        <entity name="Category" local-service="true" remote-service="true">
+            <column
+                    name="cuid"
+                    type="long"
+                    primary="true"
+                    id-type="increment"/>
+            <column name="products" type="Collection" entity="Product" mapping-table="product_categories" />
+            <column name="userName" type="String" />
+        </entity>
+        <entity name="Product" local-service="true" remote-service="true">
+            <column
+                    name="puid"
+                    type="long"
+                    primary="true"
+                    id-type="increment"/>
+            <column name="categories" type="Collection" entity="Category" mapping-table="product_categories" />
+            <column name="text" type="String" />
+        </entity>
+</service-builder>
